@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:behaviors="clr-namespace:FlightBookingApp.Behaviors"
+             mc:Ignorable="d"
+             x:Class="FlightBookingApp.Views.FindFlightsView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+            <!-- COLORS -->
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="BackgroundColor">#F6F4FC</Color>
+            <Color x:Key="AccentColor">#63C3F1</Color>
+            
+            <!-- FONTS -->
+            <OnPlatform x:Key="SourceSansProRegular"
+                        x:TypeArguments="x:String"
+                        iOS="SourceSansPro-Regular"
+                        Android="SourceSansPro-Regular.ttf#Source Sans Pro"/>
+            
+            <!-- STYLES -->
+            <Style x:Key="HeaderTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource SourceSansProRegular}" />
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            
+            <Style x:Key="HeaderDateStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource SourceSansProRegular}" />
+                <Setter Property="FontSize" Value="Micro"/>
+                <Setter Property="Opacity" Value="0.75"/>
+            </Style>
+
+            <Style x:Key="HeaderStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource SourceSansProRegular}" />
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="Header2Style" TargetType="Label">
+                <Setter Property="TextColor" Value="DarkGray" />
+                <Setter Property="FontFamily" Value="{StaticResource SourceSansProRegular}" />
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="TextStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="DarkGray" />
+                <Setter Property="FontFamily" Value="{StaticResource SourceSansProRegular}" />
+                <Setter Property="FontSize" Value="Micro"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+          
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <SwipeView
+                x:Name="SwipeView"
+                SwipeEnded="OnSwipeEnded">
+                <SwipeView.Behaviors>
+                    <behaviors:AutoCloseSwipeBehavior
+                        Delay="1000"/>
+                </SwipeView.Behaviors>
+                <!-- PULL TO REFRESH CONTENT -->
+                <SwipeView.TopItems>
+                    <SwipeItemView>
+                        <Grid
+                            BackgroundColor="{StaticResource AccentColor}"
+                            HeightRequest="60">
+                            <lottie:AnimationView
+                                Animation="pulltorefresh.json"
+                                Loop="False"  
+                                AutoPlay="True"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                                Margin="0, -12, 0, 0"/>
+                        </Grid>
+                    </SwipeItemView>
+                </SwipeView.TopItems>
+                <!-- FILTER CONTENT -->
+                <SwipeView.LeftItems 
+                    Mode="Reveal"
+                    SwipeBehaviorOnInvoked="RemainOpen">
+                    <SwipeItemView>
+                        <Grid
+                            Visual="Material"
+                            BackgroundColor="{StaticResource AccentColor}"
+                            WidthRequest="250">
+                            <StackLayout>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <DatePicker 
+                                        Grid.Column="0"
+                                        BackgroundColor="{StaticResource WhiteColor}"/>
+                                    <DatePicker 
+                                        Grid.Column="1"
+                                        BackgroundColor="{StaticResource WhiteColor}"/>
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+                    </SwipeItemView>
+                </SwipeView.LeftItems>
+                <!-- CONTENT -->
+                <Grid
+                    BackgroundColor="{StaticResource AccentColor}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <!-- HEADER -->
+                        <Grid
+                            Grid.Row="0"
+                            Padding="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid
+                                Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Column="0"
+                                    Orientation="Horizontal">
+                                    <Label 
+                                        Text="SF0"
+                                        Style="{StaticResource HeaderTitleStyle}"/>
+                                    <Label 
+                                        Text="-"
+                                        Style="{StaticResource HeaderTitleStyle}"/>
+                                    <Label 
+                                        Text="JFK"
+                                        Style="{StaticResource HeaderTitleStyle}"/>
+                                </StackLayout>
+                            </Grid>
+                            <Grid
+                                Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Column="0"
+                                    Orientation="Horizontal">
+                                    <Label 
+                                        Text="12 Sept"
+                                        Style="{StaticResource HeaderDateStyle}"/>
+                                    <Label 
+                                        Text="-"
+                                        Style="{StaticResource HeaderDateStyle}"/>
+                                    <Label 
+                                        Text="15 Sept"
+                                        Style="{StaticResource HeaderDateStyle}"/>
+                                </StackLayout>
+                                <Label 
+                                    Grid.Column="1"
+                                    Text="1 Adult, Economy"
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource HeaderDateStyle}"/>
+                            </Grid>
+                        </Grid>
+                        <pancakeview:PancakeView
+                            Grid.Row="1"
+                            BackgroundColor="{StaticResource BackgroundColor}"
+                            CornerRadius="12, 12, 0, 0">
+                            <CollectionView
+                                ItemsSource="{Binding Booking}"
+                                Margin="12, 0">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout
+                                        Orientation="Vertical"
+                                        ItemSpacing="12"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.Header>
+                                    <Grid
+                                        Padding="0, 12, 0, 0">
+                                        <Label 
+                                            Text="2 Search Results"
+                                            Style="{StaticResource HeaderStyle}"/>
+                                    </Grid>
+                                </CollectionView.Header>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <pancakeview:PancakeView
+                                            BackgroundColor="{StaticResource WhiteColor}"
+                                            CornerRadius="6"
+                                            Padding="12">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid
+                                                    Grid.Row="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="24" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="80" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image 
+                                                        Grid.Column="0"
+                                                        Aspect="AspectFit"
+                                                        Source="{Binding AirlineIcon}"/>
+                                                    <Label 
+                                                        Grid.Column="1"
+                                                        Text="{Binding AirlineName}"
+                                                        Style="{StaticResource HeaderStyle}"/>
+                                                    <Grid
+                                                        Grid.Column="2"  
+                                                        HeightRequest="24"
+                                                        HorizontalOptions="End">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label 
+                                                            Grid.Column="0"
+                                                            Text="{Binding Price}"
+                                                            Style="{StaticResource HeaderStyle}"/>
+                                                        <Image 
+                                                            Grid.Column="1"
+                                                            Aspect="AspectFit"
+                                                            Source="right_arrow.png"
+                                                            WidthRequest="24"
+                                                            VerticalOptions="Center"/>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid
+                                                    Grid.Row="1">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="100" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="100" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label 
+                                                        Grid.Column="0"
+                                                        Text="Departure"
+                                                        Style="{StaticResource Header2Style}"/>
+                                                    <Label 
+                                                        Grid.Column="2"
+                                                        Text="Arrive"
+                                                        HorizontalOptions="End"
+                                                        Style="{StaticResource Header2Style}"/>
+                                                </Grid>
+                                                <StackLayout
+                                                    Grid.Row="2"
+                                                    BindableLayout.ItemsSource="{Binding Flights}">
+                                                    <BindableLayout.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Grid
+                                                                Margin="0, 6">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="60" />
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="60" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition />
+                                                                    <RowDefinition />
+                                                                </Grid.RowDefinitions>
+                                                                <Label 
+                                                                    Grid.Column="0"
+                                                                    Grid.Row="0"
+                                                                    Text="{Binding Departure}"
+                                                                    Style="{StaticResource TextStyle}"/>
+                                                                <Label 
+                                                                    Grid.Column="0"
+                                                                    Grid.Row="1"
+                                                                    Text="{Binding DepartureTime}"
+                                                                    Style="{StaticResource HeaderStyle}"/>
+                                                                <Label
+                                                                    Grid.Row="0"
+                                                                    Grid.Column="1"
+                                                                    HorizontalOptions="Center"
+                                                                    Text="{Binding Duration}"
+                                                                    Style="{StaticResource TextStyle}"/>
+                                                                <Grid 
+                                                                    Grid.Row="0"
+                                                                    Grid.RowSpan="2"
+                                                                    Grid.Column="1">
+                                                                    <Grid 
+                                                                        HeightRequest="1"
+                                                                        BackgroundColor="Gray"
+                                                                        VerticalOptions="CenterAndExpand"/>
+                                                                </Grid>
+                                                                <Label 
+                                                                    Grid.Column="2"
+                                                                    Grid.Row="0"
+                                                                    Text="{Binding Arrive}"
+                                                                    HorizontalOptions="End"
+                                                                    Style="{StaticResource TextStyle}"/>
+                                                                <Label 
+                                                                    Grid.Column="2"
+                                                                    Grid.Row="1"
+                                                                    Text="{Binding ArriveTime}"
+                                                                    HorizontalOptions="End"
+                                                                    Style="{StaticResource HeaderStyle}"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </BindableLayout.ItemTemplate>
+                                                </StackLayout>
+                                            </Grid>
+                                        </pancakeview:PancakeView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </pancakeview:PancakeView>
+                    </Grid>
+                </Grid>
+            </SwipeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
